@@ -43,17 +43,25 @@ return [
 
 
 
-      'saml2' => [
-        'metadata' => env('SAML2_METADATA_URL'), // Metadata URL of the IdP
-        'entityid' => env('SAML2_ENTITY_ID'), // Your Service Provider Entity ID
-        'relay_state' => env('SAML2_RELAY_STATE'), // Optional Relay State
-        'cert' => env('SAML2_CERT_PATH'), // Path to your certificate file
-        'key' => env('SAML2_KEY_PATH'), // Path to your private key file
-        'sp_entityid' => env('SAML2_SP_ENTITY_ID'), // Your SP Entity ID
-        'idp_entityid' => env('SAML2_IDP_ENTITY_ID'), // Your IdP Entity ID
-        'idp_sso_url' => env('SAML2_IDP_SSO_URL'), // Your IdP Login URL
-        'idp_slo_url' => env('SAML2_IDP_SLO_URL'), // Your IdP Logout URL
-        'idp_x509cert' => env('SAML2_IDP_X509CERT'), // Your IdP X509 Certificate
+    //   'saml2' => [
+    //     'metadata' => env('SAML2_METADATA_URL'), // Metadata URL of the IdP
+    //     'entityid' => env('SAML2_ENTITY_ID'), // Your Service Provider Entity ID
+    //     'relay_state' => env('SAML2_RELAY_STATE'), // Optional Relay State
+    //     'cert' => env('SAML2_CERT_PATH'), // Path to your certificate file
+    //     'key' => env('SAML2_KEY_PATH'), // Path to your private key file
+    //     'sp_entityid' => env('SAML2_SP_ENTITY_ID'), // Your SP Entity ID
+    //     'idp_entityid' => env('SAML2_IDP_ENTITY_ID'), // Your IdP Entity ID
+    //     'idp_sso_url' => env('SAML2_IDP_SSO_URL'), // Your IdP Login URL
+    //     'idp_slo_url' => env('SAML2_IDP_SLO_URL'), // Your IdP Logout URL
+    //     'idp_x509cert' => env('SAML2_IDP_X509CERT'), // Your IdP X509 Certificate
+    // ],
+
+    'saml2' => [
+        'metadata' => 'https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q/metadata',
+        'entity_id' => 'https://saml.demoserver.co.za/saml',
+        'acs' => 'https://saml.demoserver.co.za/saml/auth/callback',
+        'relay_state' => '',
+        'certificate' => '',
     ],
 
 

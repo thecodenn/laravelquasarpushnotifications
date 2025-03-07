@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
-    print "<a href='".route("facebook.redirect")."'>Facebook login (oauth!)</a>";
+    print "<p><a href='".route("facebook.redirect")."'>Facebook login (oauth!)</a></p>";
+    print "<p><a href='".route("saml.redirect")."'>SAML login</a></p>";
 });
 
 

@@ -42,6 +42,9 @@ Route::post("/saml/auth/callback", function() {
         // Decode the base64 URL-encoded response
         $decodedSamlResponse = base64_decode(urldecode($samlResponse));
         
+
+        Log::debug('Decoded SAML Response: ', ['urldecode' => urldecode($samlResponse)]);
+
         // Log the decoded SAML response for debugging
         Log::debug('Decoded SAML Response: ', ['response' => $decodedSamlResponse]);
 

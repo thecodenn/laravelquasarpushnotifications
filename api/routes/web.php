@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -31,9 +32,9 @@ Route::get("/saml/auth/redirect", function () {
 })->name("saml.redirect");
 
 Route::post("/saml/auth/callback", function() {
-
+    //https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q
     Log::debug("in callback!");
-// $user = Socialite::driver("saml2")->user();
+    $user = Socialite::driver("saml2")->user();
 //        print "<p>name: ". $user->name."</p>";
 //        print "<p>id: ".substr($user->id, 3)."************</p>";
 //        print "<p>email: we have hit</p>";

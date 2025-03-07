@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -35,4 +36,4 @@ $user = Socialite::driver("saml2")->user();
        print "<p>id: ".substr($user->id, 3)."************</p>";
        print "<p>email: we have hit</p>";
        print "<img src='".$user->avatar."'>";
-})->name("saml.callback");
+})->name("saml.callback")->withoutMiddleware([VerifyCsrfToken::class]); // Disables CSRF for this route

@@ -41,10 +41,7 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT'),
     ],
 
-    'saml2' => [
-        'metadata' => 'https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q/metadata',
-        'certificate' => file_get_contents('/home/john/Projects/quasar/saml.crt'),
-      ],
+
 
       'saml2' => [
         'metadata' => env('SAML2_METADATA_URL'), // Metadata URL of the IdP
@@ -58,6 +55,6 @@ return [
         'idp_slo_url' => env('SAML2_IDP_SLO_URL'), // Your IdP Logout URL
         'idp_x509cert' => env('SAML2_IDP_X509CERT'), // Your IdP X509 Certificate
     ],
-    
+
 
 ];

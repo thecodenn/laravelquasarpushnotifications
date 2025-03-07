@@ -31,9 +31,11 @@ Route::get("/saml/auth/redirect", function () {
 })->name("saml.redirect");
 
 Route::post("/saml/auth/callback", function() {
-$user = Socialite::driver("saml2")->user();
-       print "<p>name: ". $user->name."</p>";
-       print "<p>id: ".substr($user->id, 3)."************</p>";
-       print "<p>email: we have hit</p>";
-       print "<img src='".$user->avatar."'>";
+
+    Log::debug("in callback!");
+// $user = Socialite::driver("saml2")->user();
+//        print "<p>name: ". $user->name."</p>";
+//        print "<p>id: ".substr($user->id, 3)."************</p>";
+//        print "<p>email: we have hit</p>";
+//        print "<img src='".$user->avatar."'>";
 })->name("saml.callback")->withoutMiddleware([VerifyCsrfToken::class]); // Disables CSRF for this route

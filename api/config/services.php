@@ -41,5 +41,9 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT'),
     ],
 
+    'saml2' => [
+        'metadata' => 'https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q/metadata',
+        'certificate' => file_get_contents('/home/john/Projects/quasar/saml.crt'),
+      ],
 
 ];

@@ -12,7 +12,7 @@ class Push extends Command
      *
      * @var string
      */
-    protected $signature = 'pushy:push {pageId : The ID of the page.}';
+    protected $signature = 'pushy:push {pageId : The ID of the page, or all.}';
 
     /**
      * The console command description.
@@ -36,10 +36,15 @@ class Push extends Command
             "host"      => config("database.redis.default.host"),
             "port"      => config("database.redis.default.port"),
         ]);
-    
+
+        $quotes = "";
+        if ($pageId == "all") {
+            $quotes = '"';
+        }
+
         $client->publish(
             channel: env("APP_NAME")."-pushy-".$pageId, 
-            message:'{"pageId":'.$pageId.', "type": "general", "message": "Hello there. I am a notification sent at '. Carbon::now().'" }'
+            message:'{"pageId":'.$quotes.$pageId.$quotes.', "type": "general", "message": "Hello there. I am a notification sent at '. Carbon::now().'" }'
         );
 
         $this->info("Notification sent!");

@@ -34,6 +34,9 @@ Route::get("/saml/auth/redirect", function () {
 Route::post("/saml/auth/callback", function() {
     //https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q
     Log::debug("in callback!");
+
+    Log::debug('SAML2 Raw Response', request()->all());
+    
     $user = Socialite::driver("saml2")->user();
 //        print "<p>name: ". $user->name."</p>";
 //        print "<p>id: ".substr($user->id, 3)."************</p>";

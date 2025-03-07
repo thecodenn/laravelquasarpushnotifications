@@ -35,9 +35,31 @@ Route::post("/saml/auth/callback", function() {
     //https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q
     Log::debug("in callback!");
 
-    Log::debug('SAML2 Raw Response', request()->all());
-    
-    $user = Socialite::driver("saml2")->user();
+    // Get the encoded SAML response from the request
+    $samlResponse = request()->input('SAMLResponse');
+
+    if ($samlResponse) {
+        // Decode the base64 URL-encoded response
+        $decodedSamlResponse = base64_decode(urldecode($samlResponse));
+        
+        // Log the decoded SAML response for debugging
+        Log::debug('Decoded SAML Response: ', ['response' => $decodedSamlResponse]);
+
+        try {
+            // // Now pass the decoded response to the Socialite driver
+            // $user = Socialite::driver("saml2")->userFromSamlResponse($decodedSamlResponse);
+            
+            // Log::debug('User: ', (array)$user);
+        } catch (\Exception $e) {
+            Log::error('Error during SAML authentication: ' . $e->getMessage());
+        }
+    } else {
+        Log::error('No SAMLResponse found in the request');
+    }
+
+
+
+    // $user = Socialite::driver("saml2")->user();
 //        print "<p>name: ". $user->name."</p>";
 //        print "<p>id: ".substr($user->id, 3)."************</p>";
 //        print "<p>email: we have hit</p>";

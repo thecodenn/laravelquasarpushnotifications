@@ -29,7 +29,7 @@ Route::get("/saml/auth/redirect", function () {
             ->redirect();
 })->name("saml.redirect");
 
-Route::get("/saml/auth/callback", function() {
+Route::post("/saml/auth/callback", function() {
 $user = Socialite::driver("saml2")->user();
        print "<p>name: ". $user->name."</p>";
        print "<p>id: ".substr($user->id, 3)."************</p>";

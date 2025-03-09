@@ -27,9 +27,14 @@ $user = Socialite::driver("facebook")->user();
 
 
 Route::get("/saml/auth/redirect", function () {
+
+    Log::debug("in saml/auth/redirect");
     return Socialite::driver("saml2")
             ->redirect();
+    Log::debug("returned");
 })->name("saml.redirect");
+
+
 
 Route::post("/saml/auth/callback", function() {
     //https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q
@@ -60,11 +65,9 @@ Route::post("/saml/auth/callback", function() {
         Log::error('No SAMLResponse found in the request');
     }
 
-
-
     // $user = Socialite::driver("saml2")->user();
-//        print "<p>name: ". $user->name."</p>";
-//        print "<p>id: ".substr($user->id, 3)."************</p>";
-//        print "<p>email: we have hit</p>";
-//        print "<img src='".$user->avatar."'>";
+    //        print "<p>name: ". $user->name."</p>";
+    //        print "<p>id: ".substr($user->id, 3)."************</p>";
+    //        print "<p>email: we have hit</p>";
+    //        print "<img src='".$user->avatar."'>";
 })->name("saml.callback")->withoutMiddleware([VerifyCsrfToken::class]); // Disables CSRF for this route

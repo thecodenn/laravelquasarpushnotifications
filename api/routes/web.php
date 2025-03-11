@@ -4,6 +4,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 Route::get('/', function () {
     print "<p><a href='".route("facebook.redirect")."'>Facebook login (oauth!)</a></p>";
@@ -18,13 +19,17 @@ Route::get("/facebook/auth/redirect", function () {
 
 Route::get("/facebook/auth/callback", function() {
 $user = Socialite::driver("facebook")->user();
-       print "<p>name: ". $user->name."</p>";
-       print "<p>id: ".substr($user->id, 3)."************</p>";
+       print "<p>name: ". $user->name."</p>"; 
+       print "<p>id: ".substr($user->id,0, 3)."************</p>";
        print "<p>email: we have hit</p>";
        print "<img src='".$user->avatar."'>";
 })->name("facebook.callback");
+    
+    
 
-
+Route::get('/saml/auth/metadata', function () {
+    return Socialite::driver('saml2')->getServiceProviderMetadata();
+});
 
 Route::get("/saml/auth/redirect", function () {
 
@@ -35,40 +40,37 @@ Route::get("/saml/auth/redirect", function () {
 })->name("saml.redirect");
 
 
-
 Route::post("/saml/auth/callback", function() {
     // https://dummyidp.com/apps/app_01jp1y7dh58bypgn5zw9rxyq90
     Log::debug("in callback!");
 
-    // Get the encoded SAML response from the request
-    $samlResponse = request()->input('SAMLResponse');
+    // Optionally log the raw SAMLResponse without decoding
+    // $rawSamlResponse = request()->input('SAMLResponse');
+    // Log::debug('Raw SAML Response: ', ['response' => $rawSamlResponse]);
 
-    if ($samlResponse) {
-        // Decode the base64 URL-encoded response
-        $decodedSamlResponse = base64_decode(urldecode($samlResponse));
-        
+    // $decodedSamlResponse = base64_decode($rawSamlResponse);
+    // Log::debug('Decoded SAML Response: ', ['response' => $decodedSamlResponse]);
 
-        Log::debug('Decoded SAML Response: ', ['urldecode' => urldecode($samlResponse)]);
 
-        // Log the decoded SAML response for debugging
-        Log::debug('Decoded SAML Response: ', ['response' => $decodedSamlResponse]);
+        $user = Socialite::driver('saml2')->stateless()->user();
+        Log::debug("user: ".print_r($user, true));
+        Log::debug("user email: ".$user->getEmail());
+        Log::debug("user id: ".$user->getId());
+        Log::debug('User attributes: ', $user->attributes);
 
-        try {
-            // // Now pass the decoded response to the Socialite driver
-            // $user = Socialite::driver("saml2")->userFromSamlResponse($decodedSamlResponse);
-            $user = Socialite::driver('saml2')->stateless()->user();
+        $email = $user->getId();
 
-            Log::debug('User: ', (array)$user);
-        } catch (\Exception $e) {
-            Log::error('Error during SAML authentication: ' . $e->getMessage());
+        $user = User::where('email', $email)->first();
+
+
+        Auth::login($user);
+
+        if (Auth::check()) {
+        print "<p>name: ". $user->name."</p>";
+       print "<p>id: ".substr($user->id, 0, 3)."************</p>";
+       print "<p>email: we have hit</p>";
+        } else {
+                print "user not logged in...";
         }
-    } else {
-        Log::error('No SAMLResponse found in the request');
-    }
 
-    // $user = Socialite::driver("saml2")->user();
-    //        print "<p>name: ". $user->name."</p>";
-    //        print "<p>id: ".substr($user->id, 3)."************</p>";
-    //        print "<p>email: we have hit</p>";
-    //        print "<img src='".$user->avatar."'>";
 })->name("saml.callback")->withoutMiddleware([VerifyCsrfToken::class]); // Disables CSRF for this route

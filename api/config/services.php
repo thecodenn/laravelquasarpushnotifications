@@ -57,7 +57,9 @@ return [
     // ],
 
     'saml2' => [
-        'metadata' => 'https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q/metadata',
+        'metadata' => 'https://dummyidp.com/apps/app_01jp1y7dh58bypgn5zw9rxyq90/metadata',
+        'sp_acs' => '/saml/auth/callback',  // This is your Assertion Consumer Service URL.
+
         // 'entityid' => 'https://saml.demoserver.co.za/saml',
         // 'acs' => 'https://saml.demoserver.co.za/saml/auth/callback',
         // 'relay_state' => '',

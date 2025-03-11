@@ -37,7 +37,7 @@ Route::get("/saml/auth/redirect", function () {
 
 
 Route::post("/saml/auth/callback", function() {
-    //https://dummyidp.com/apps/app_01jnr1jcz32x4ryrxx2k2s3w4q
+    // https://dummyidp.com/apps/app_01jp1y7dh58bypgn5zw9rxyq90
     Log::debug("in callback!");
 
     // Get the encoded SAML response from the request
@@ -56,8 +56,9 @@ Route::post("/saml/auth/callback", function() {
         try {
             // // Now pass the decoded response to the Socialite driver
             // $user = Socialite::driver("saml2")->userFromSamlResponse($decodedSamlResponse);
-            
-            // Log::debug('User: ', (array)$user);
+            $user = Socialite::driver('saml2')->stateless()->user();
+
+            Log::debug('User: ', (array)$user);
         } catch (\Exception $e) {
             Log::error('Error during SAML authentication: ' . $e->getMessage());
         }

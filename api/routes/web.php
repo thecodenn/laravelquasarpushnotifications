@@ -42,6 +42,9 @@ Route::get("/saml/auth/redirect", function () {
 
 Route::post("/saml/auth/callback", function() {
     // https://dummyidp.com/apps/app_01jp1y7dh58bypgn5zw9rxyq90
+    // https://www.samltool.com/base64.php
+    // https://addons.mozilla.org/en-US/firefox/addon/saml-tracer/
+    
     Log::debug("in callback!");
 
     // Optionally log the raw SAMLResponse without decoding

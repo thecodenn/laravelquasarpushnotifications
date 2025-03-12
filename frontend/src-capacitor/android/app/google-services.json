@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1056702542947",
+    "project_id": "webworkspushdemo",
+    "storage_bucket": "webworkspushdemo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056702542947:android:c0449ba36ae09619a47456",
+        "android_client_info": {
+          "package_name": "org.capacitor.quasar.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiBHTpxxgwL_01430flizVZNvAoQmuQbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

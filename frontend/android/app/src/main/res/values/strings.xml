@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">WebPush</string>
+    <string name="title_activity_main">WebPush</string>
+    <string name="package_name">za.co.softsmart.webpush</string>
+    <string name="custom_url_scheme">za.co.softsmart.webpush</string>
+</resources>
